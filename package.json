@@ -1,0 +1,44 @@
+{
+  "name": "math-interval",
+  "version": "1.0.0",
+  "description": "Create math intervals like '0 ≤ b < 100' and test numbers",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "start": "karma start karma.config.js",
+    "test": "karma start karma.config.js --single-run",
+    "lint": "tslint \"src/**/*.ts\"",
+    "preversion": "npm test",
+    "version": "npm run build",
+    "postversion": "git push origin && git push origin --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/harunurhan/math-interval.git"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "math",
+    "interval",
+    "range",
+    "compare"
+  ],
+  "author": "Harun Urhan <harunurhan17@gmail.com> (http://github.com/harunurhan)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harunurhan/math-interval/issues"
+  },
+  "homepage": "https://github.com/harunurhan/math-interval#readme",
+  "devDependencies": {
+    "@types/jasmine": "^2.5.54",
+    "jasmine-core": "^2.8.0",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-typescript": "^3.0.5",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2"
+  }
+}
