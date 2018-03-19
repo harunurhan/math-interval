@@ -1,7 +1,7 @@
 {
   "name": "math-interval",
   "version": "1.0.0",
-  "description": "Create math intervals like '0 ≤ b < 100' and test numbers",
+  "description": "Create math intervals like '(-∞, 100]' and test numbers",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",

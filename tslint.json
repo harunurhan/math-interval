@@ -9,6 +9,7 @@
     "interface-name": [
       true,
       "never-prefix"
-    ]
+    ],
+    "member-ordering": false
   }
 }
