@@ -58,7 +58,8 @@ export class MathInterval {
   private readonly intervalString: string;
 
   private constructor(lower: number, lowerOpen: boolean, upper: number, upperOpen: boolean) {
-    // TODO: validate if it is valid math interval
+    this.validate(lower, lowerOpen, upper, upperOpen);
+
     this.lower = lower;
     this.lowerOpen = lowerOpen;
     this.compareLower = lowerOpen ? greaterOrEqualThan : greaterThan;
@@ -66,6 +67,12 @@ export class MathInterval {
     this.upperOpen = upperOpen;
     this.compareUpper = upperOpen ? lessOrEqualThan : lessThan;
     this.intervalString = this.getIntervalString();
+  }
+
+  private validate(lower: number, lowerOpen: boolean, upper: number, upperOpen: boolean): void {
+    if (lower === upper && !(lowerOpen && upperOpen)) {
+      throw new Error('upper endpoint can be equal to lower endpoint only if both bounds are open');
+    }
   }
 
   private getIntervalString(): string {

@@ -31,6 +31,16 @@ describe('MathInterval', () => {
     });
   });
 
+  describe('validation', () => {
+    it('should throw error if lower equals to upper endpoint and both bounds are not open', () => {
+      expect(() => MathInterval.interval(100, true, 100, false)).toThrowError();
+    });
+
+    it('should not throw error if lower equals to upper endpoint but both bounds are open', () => {
+      expect(() => MathInterval.interval(100, true, 100, true)).not.toThrowError();
+    });
+  });
+
   describe('open', () => {
     const interval = MathInterval.open(0, 100);
 
