@@ -32,6 +32,14 @@ describe('MathInterval', () => {
   });
 
   describe('validation', () => {
+    it('should throw error if lower endpoint greater than upper endpoint', () => {
+      expect(() => MathInterval.interval(100, true, 0, false)).toThrowError();
+    });
+
+    it('should throw error if lower endpoint smaller than upper endpoint', () => {
+      expect(() => MathInterval.interval(0, true, 100, false)).not.toThrowError();
+    });
+
     it('should throw error if lower equals to upper endpoint and both bounds are not closed', () => {
       expect(() => MathInterval.interval(100, true, 100, false)).toThrowError();
     });

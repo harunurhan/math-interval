@@ -57,6 +57,10 @@ export class MathInterval {
   }
 
   private validate(): void {
+    if (this.lowerEndpoint() > this.upperEndpoint()) {
+      throw new Error('lower endpoint can not be greater than upper endpoint');
+    }
+
     if (this.lowerEndpoint() === this.upperEndpoint() && !(this.isLowerBoundClosed() && this.isUpperBoundClosed())) {
       throw new Error('upper endpoint can be equal to lower endpoint only if both bounds are closed');
     }
