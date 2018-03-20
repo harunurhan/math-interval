@@ -1,18 +1,17 @@
-abstract class Bound {
-
-  public static lowerClosedBound(endpoint): Bound {
+export abstract class Bound {
+  public static lowerClosedBound(endpoint: number): Bound {
     return new LowerClosedBound(endpoint);
   }
 
-  public static lowerOpenBound(endpoint): Bound {
+  public static lowerOpenBound(endpoint: number): Bound {
     return new LowerOpenBound(endpoint);
   }
 
-  public static upperClosedBound(endpoint): Bound {
+  public static upperClosedBound(endpoint: number): Bound {
     return new UpperClosedBound(endpoint);
   }
 
-  public static upperOpenBound(endpoint): Bound {
+  public static upperOpenBound(endpoint: number): Bound {
     return new UpperOpenBound(endpoint);
   }
 

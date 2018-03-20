@@ -62,7 +62,7 @@ describe('MathInterval', () => {
       expect(a.isConnected(b)).toBe(true);
     });
 
-    it('should be connected even if connection set empty', () => {
+    it('should not be connected even if connection set empty', () => {
       const a = MathInterval.interval(0, true, 50, false);
       const b = MathInterval.interval(50, true, 75, false);
       expect(a.isConnected(b)).toBe(false);

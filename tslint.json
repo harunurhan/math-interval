@@ -10,6 +10,10 @@
       true,
       "never-prefix"
     ],
-    "member-ordering": false
+    "member-ordering": false,
+    "max-classes-per-file": [
+      true,
+      5
+    ]
   }
 }
