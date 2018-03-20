@@ -89,6 +89,64 @@ describe('MathInterval', () => {
     });
   });
 
+  xdescribe('span', () => {
+    it('should return span for connected', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(50, false, 150, false);
+      const e = MathInterval.interval(0, false, 150, false);
+      expect(a.span(b).equals(e)).toBe(true);
+    });
+
+    it('should return enclosing as span', () => {
+      const a = MathInterval.interval(0, true, 100, false);
+      const b = MathInterval.interval(25, false, 50, true);
+      expect(a.span(b).equals(a)).toBe(true);
+    });
+
+    it('should return span for disconnected', () => {
+      const a = MathInterval.interval(0, false, 25, false);
+      const b = MathInterval.interval(75, false, 100, true);
+      const e = MathInterval.interval(0, false, 100, true);
+      expect(a.span(b).equals(e)).toBe(true);
+    });
+
+    it('should return span for closely disconnected', () => {
+      const a = MathInterval.interval(0, true, 25, true);
+      const b = MathInterval.interval(25, false, 100, false);
+      const e = MathInterval.interval(0, true, 100, false);
+      expect(a.span(b).equals(e)).toBe(true);
+    });
+  });
+
+  xdescribe('intersection', () => {
+    it('should return intersection for connected', () => {
+      const a = MathInterval.interval(0, false, 100, true);
+      const b = MathInterval.interval(50, false, 150, false);
+      const e = MathInterval.interval(50, false, 100, true);
+      expect(a.intersection(b).equals(e)).toBe(true);
+    });
+
+    it('should return enclosed as intersection', () => {
+      const a = MathInterval.interval(0, true, 100, false);
+      const b = MathInterval.interval(25, false, 50, true);
+      expect(a.intersection(b).equals(b)).toBe(true);
+    });
+
+    it('should not return intersection for disconnected', () => {
+      const a = MathInterval.interval(0, false, 25, false);
+      const b = MathInterval.interval(75, false, 100, true);
+      const e = MathInterval.interval(0, false, 100, true);
+      expect(() => a.intersection(b)).toThrowError();
+    });
+
+    it('should not return intersection for closely disconnected', () => {
+      const a = MathInterval.interval(0, true, 25, true);
+      const b = MathInterval.interval(25, false, 100, false);
+      const e = MathInterval.interval(0, true, 100, false);
+      expect(() => a.intersection(b)).toThrowError();
+    });
+  });
+
   describe('encloses', () => {
     it('should enclose', () => {
       const a = MathInterval.interval(0, false, 100, false);

@@ -66,6 +66,7 @@ export class MathInterval {
   }
 
   private getIntervalString(): string {
+    // TODO: move logic to Bound.toString
     const lowerSymbol = this.isLowerBoundClosed() ? '[' : '(';
     const upperSymbol = this.isUpperBoundClosed() ? ']' : ')';
     const lowerEndpoint = this.lowerEndpoint() === -Infinity ? '-∞' : this.lowerEndpoint();
@@ -109,6 +110,14 @@ export class MathInterval {
 
     return this.lowerBound.test(other.lowerEndpoint())
       && this.upperBound.test(other.upperEndpoint());
+  }
+
+  public span(other: MathInterval): MathInterval {
+    return null;
+  }
+
+  public intersection(connected: MathInterval): MathInterval {
+    return null;
   }
 
   public equals(other: MathInterval): boolean {
