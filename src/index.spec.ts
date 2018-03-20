@@ -13,11 +13,11 @@ describe('MathInterval', () => {
     });
 
     it('should set lower bound type', () => {
-      expect(interval.isLowerBoundOpen()).toBe(true);
+      expect(interval.isLowerBoundClosed()).toBe(true);
     });
 
     it('should set upper bound type', () => {
-      expect(interval.isUpperBoundOpen()).toBe(false);
+      expect(interval.isUpperBoundClosed()).toBe(false);
     });
 
     describe('containsAll', () => () => {
@@ -38,6 +38,46 @@ describe('MathInterval', () => {
 
     it('should not throw error if lower equals to upper endpoint but both bounds are closed', () => {
       expect(() => MathInterval.interval(100, true, 100, true)).not.toThrowError();
+    });
+  });
+
+  describe('isConnected', () => {
+    it('should be connected both ways', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(50, false, 150, false);
+      expect(a.isConnected(b)).toBe(true);
+      expect(b.isConnected(a)).toBe(true);
+    });
+
+    it('should not be connected both ways', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(150, false, 250, false);
+      expect(a.isConnected(b)).toBe(false);
+      expect(b.isConnected(a)).toBe(false);
+    });
+
+    it('should be connected if includes other', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(25, false, 75, false);
+      expect(a.isConnected(b)).toBe(true);
+    });
+
+    it('should be connected even if connection set empty', () => {
+      const a = MathInterval.interval(0, true, 50, false);
+      const b = MathInterval.interval(50, true, 75, false);
+      expect(a.isConnected(b)).toBe(false);
+    });
+
+    it('should be connected if connection set singleton', () => {
+      const a = MathInterval.interval(0, true, 50, true);
+      const b = MathInterval.interval(50, true, 75, false);
+      expect(a.isConnected(b)).toBe(true);
+    });
+
+    it('should not be connected if connection set is invalid', () => {
+      const a = MathInterval.interval(0, true, 50, false);
+      const b = MathInterval.interval(50, false, 75, false);
+      expect(a.isConnected(b)).toBe(false);
     });
   });
 

@@ -69,9 +69,9 @@ export class MathInterval {
     this.intervalString = this.getIntervalString();
   }
 
-  private validate(lower: number, lowerOpen: boolean, upper: number, upperOpen: boolean): void {
-    if (lower === upper && !(lowerOpen && upperOpen)) {
-      throw new Error('upper endpoint can be equal to lower endpoint only if both bounds are open');
+  private validate(lower: number, lowerClosed: boolean, upper: number, uperClosed: boolean): void {
+    if (lower === upper && !(lowerClosed && uperClosed)) {
+      throw new Error('upper endpoint can be equal to lower endpoint only if both bounds are closed');
     }
   }
 
@@ -91,12 +91,16 @@ export class MathInterval {
     return this.upper;
   }
 
-  public isLowerBoundOpen(): boolean {
+  public isLowerBoundClosed(): boolean {
     return this.lowerClosed;
   }
 
-  public isUpperBoundOpen(): boolean {
+  public isUpperBoundClosed(): boolean {
     return this.upperClosed;
+  }
+
+  public containsAll(numbers: number[]): boolean {
+    return !numbers.some((n) => !this.contains(n));
   }
 
   public contains(n: number): boolean {
@@ -104,8 +108,9 @@ export class MathInterval {
     return this.compareLower(n, this.lower) && this.compareUpper(n, this.upper);
   }
 
-  public containsAll(numbers: number[]): boolean {
-    return !numbers.some((n) => !this.contains(n));
+  public isConnected(other: MathInterval): boolean {
+    return this.compareLower(other.upper, this.lower)
+      && this.compareUpper(other.lower, this.upper);
   }
 
   public toString(): string {
