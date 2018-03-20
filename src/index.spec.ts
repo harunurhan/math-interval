@@ -32,41 +32,17 @@ describe('MathInterval', () => {
   });
 
   describe('validation', () => {
-    it('should throw error if lower equals to upper endpoint and both bounds are not open', () => {
+    it('should throw error if lower equals to upper endpoint and both bounds are not closed', () => {
       expect(() => MathInterval.interval(100, true, 100, false)).toThrowError();
     });
 
-    it('should not throw error if lower equals to upper endpoint but both bounds are open', () => {
+    it('should not throw error if lower equals to upper endpoint but both bounds are closed', () => {
       expect(() => MathInterval.interval(100, true, 100, true)).not.toThrowError();
     });
   });
 
   describe('open', () => {
     const interval = MathInterval.open(0, 100);
-
-    it('should set lower endpoint', () => {
-      expect(interval.lowerEndpoint()).toBe(0);
-    });
-
-    it('should set upper endpoint', () => {
-      expect(interval.upperEndpoint()).toBe(100);
-    });
-
-    it('should not contain less than lower endpoint', () => {
-      expect(interval.contains(-1)).toBe(false);
-    });
-
-    it('should not contain greater than upper endpoint', () => {
-      expect(interval.contains(101)).toBe(false);
-    });
-
-    it('toString', () => {
-      expect(interval.toString()).toBe('[0, 100]');
-    });
-  });
-
-  describe('closed', () => {
-    const interval = MathInterval.closed(0, 100);
 
     it('should not contain lower endpoint', () => {
       expect(interval.contains(0)).toBe(false);
@@ -93,11 +69,11 @@ describe('MathInterval', () => {
     });
   });
 
-  describe('closedOpen', () => {
-    const interval = MathInterval.closedOpen(0, 100);
+  describe('closed', () => {
+    const interval = MathInterval.closed(0, 100);
 
-    it('should not contain lower endpoint', () => {
-      expect(interval.contains(0)).toBe(false);
+    it('should contain lower endpoint', () => {
+      expect(interval.contains(0)).toBe(true);
     });
 
     it('should contain upper endpoint', () => {
@@ -117,12 +93,12 @@ describe('MathInterval', () => {
     });
 
     it('toString', () => {
-      expect(interval.toString()).toBe('(0, 100]');
+      expect(interval.toString()).toBe('[0, 100]');
     });
   });
 
-  describe('openClosed', () => {
-    const interval = MathInterval.openClosed(0, 100);
+  describe('closedOpen', () => {
+    const interval = MathInterval.closedOpen(0, 100);
 
     it('should contain lower endpoint', () => {
       expect(interval.contains(0)).toBe(true);
@@ -146,6 +122,34 @@ describe('MathInterval', () => {
 
     it('toString', () => {
       expect(interval.toString()).toBe('[0, 100)');
+    });
+  });
+
+  describe('openClosed', () => {
+    const interval = MathInterval.openClosed(0, 100);
+
+    it('should not contain lower endpoint', () => {
+      expect(interval.contains(0)).toBe(false);
+    });
+
+    it('should contain upper endpoint', () => {
+      expect(interval.contains(100)).toBe(true);
+    });
+
+    it('should contain middle', () => {
+      expect(interval.contains(50)).toBe(true);
+    });
+
+    it('should not contain less than lower endpoint', () => {
+      expect(interval.contains(-1)).toBe(false);
+    });
+
+    it('should not contain greater than upper endpoint', () => {
+      expect(interval.contains(101)).toBe(false);
+    });
+
+    it('toString', () => {
+      expect(interval.toString()).toBe('(0, 100]');
     });
   });
 

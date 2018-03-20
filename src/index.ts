@@ -10,19 +10,19 @@ type CompareFunction = (a: number, b: number) => boolean;
 
 export class MathInterval {
   public static open(lower: number, upper: number): MathInterval {
-    return MathInterval.interval(lower, true, upper, true);
-  }
-
-  public static closed(lower: number, upper: number): MathInterval {
     return MathInterval.interval(lower, false, upper, false);
   }
 
+  public static closed(lower: number, upper: number): MathInterval {
+    return MathInterval.interval(lower, true, upper, true);
+  }
+
   public static closedOpen(lower: number, upper: number): MathInterval {
-    return MathInterval.interval(lower, false, upper, true);
+    return MathInterval.interval(lower, true, upper, false);
   }
 
   public static openClosed(lower: number, upper: number): MathInterval {
-    return MathInterval.interval(lower, true, upper, false);
+    return MathInterval.interval(lower, false, upper, true);
   }
 
   public static greaterThan(lower: number): MathInterval {
@@ -45,27 +45,27 @@ export class MathInterval {
     return MathInterval.interval(-Infinity, false, Infinity, false);
   }
 
-  public static interval(lower: number, lowerOpen: boolean, upper: number, upperOpen: boolean): MathInterval {
-    return new MathInterval(lower, lowerOpen, upper, upperOpen);
+  public static interval(lower: number, lowerClosed: boolean, upper: number, upperClosed: boolean): MathInterval {
+    return new MathInterval(lower, lowerClosed, upper, upperClosed);
   }
 
   private readonly lower: number;
-  private readonly lowerOpen: boolean;
+  private readonly lowerClosed: boolean;
   private readonly compareLower: CompareFunction;
   private readonly upper: number;
-  private readonly upperOpen: boolean;
+  private readonly upperClosed: boolean;
   private readonly compareUpper: CompareFunction;
   private readonly intervalString: string;
 
-  private constructor(lower: number, lowerOpen: boolean, upper: number, upperOpen: boolean) {
-    this.validate(lower, lowerOpen, upper, upperOpen);
+  private constructor(lower: number, lowerClosed: boolean, upper: number, upperClosed: boolean) {
+    this.validate(lower, lowerClosed, upper, upperClosed);
 
     this.lower = lower;
-    this.lowerOpen = lowerOpen;
-    this.compareLower = lowerOpen ? greaterOrEqualThan : greaterThan;
+    this.lowerClosed = lowerClosed;
+    this.compareLower = lowerClosed ? greaterOrEqualThan : greaterThan;
     this.upper = upper;
-    this.upperOpen = upperOpen;
-    this.compareUpper = upperOpen ? lessOrEqualThan : lessThan;
+    this.upperClosed = upperClosed;
+    this.compareUpper = upperClosed ? lessOrEqualThan : lessThan;
     this.intervalString = this.getIntervalString();
   }
 
@@ -76,8 +76,8 @@ export class MathInterval {
   }
 
   private getIntervalString(): string {
-    const lowerSymbol = this.lowerOpen ? '[' : '(';
-    const upperSymbol = this.upperOpen ? ']' : ')';
+    const lowerSymbol = this.lowerClosed ? '[' : '(';
+    const upperSymbol = this.upperClosed ? ']' : ')';
     const lowerNumber = this.lower === -Infinity ? '-∞' : this.lower;
     const upperNumber = this.upper === Infinity ? '+∞' : this.upper;
     return `${lowerSymbol}${lowerNumber}, ${upperNumber}${upperSymbol}`;
@@ -92,11 +92,11 @@ export class MathInterval {
   }
 
   public isLowerBoundOpen(): boolean {
-    return this.lowerOpen;
+    return this.lowerClosed;
   }
 
   public isUpperBoundOpen(): boolean {
-    return this.upperOpen;
+    return this.upperClosed;
   }
 
   public contains(n: number): boolean {
