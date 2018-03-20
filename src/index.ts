@@ -26,7 +26,6 @@ export class MathInterval {
   }
 
   public static lessThan(upper: number): MathInterval {
-
     return MathInterval.interval(-Infinity, false, upper, false);
   }
 
@@ -95,13 +94,29 @@ export class MathInterval {
   }
 
   public contains(n: number): boolean {
-    // TODO: use curried so that this.lower and this.upper is not passed every time
     return this.lowerBound.test(n) && this.upperBound.test(n);
   }
 
   public isConnected(other: MathInterval): boolean {
     return this.lowerBound.test(other.upperEndpoint())
       && this.upperBound.test(other.lowerEndpoint());
+  }
+
+  public encloses(other: MathInterval): boolean {
+    if (this.equals(other)) {
+      return true;
+    }
+
+    return this.lowerBound.test(other.lowerEndpoint())
+      && this.upperBound.test(other.upperEndpoint());
+  }
+
+  public equals(other: MathInterval): boolean {
+    // TODO: try to move some logic to Bound.equals
+    return this.lowerBound.closed === other.lowerBound.closed
+      && this.lowerBound.endpoint === other.lowerBound.endpoint
+      && this.upperBound.closed === other.upperBound.closed
+      && this.upperBound.endpoint === other.upperBound.endpoint;
   }
 
   public toString(): string {

@@ -89,6 +89,94 @@ describe('MathInterval', () => {
     });
   });
 
+  describe('encloses', () => {
+    it('should enclose', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(25, false, 75, false);
+      expect(a.encloses(b)).toBe(true);
+    });
+
+    it('should not enclose', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(150, false, 250, false);
+      expect(a.encloses(b)).toBe(false);
+    });
+
+    it('should not enclose if connected', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(50, false, 150, false);
+      expect(a.encloses(b)).toBe(false);
+    });
+
+    it('should enclose if same and all bounds are closed', () => {
+      const a = MathInterval.interval(0, true, 100, true);
+      const b = MathInterval.interval(0, true, 100, true);
+      expect(a.encloses(b)).toBe(true);
+    });
+
+    it('should enclose if same and all bounds are not closed', () => {
+      const a = MathInterval.interval(0, true, 100, false);
+      const b = MathInterval.interval(0, true, 100, false);
+      expect(a.encloses(b)).toBe(true);
+    });
+
+    it('should not enclose if endpoints are same but enclosing is open and enclosed closed', () => {
+      const a = MathInterval.interval(0, true, 100, false);
+      const b = MathInterval.interval(0, true, 100, true);
+      expect(a.encloses(b)).toBe(false);
+    });
+
+    it('should enclose if endpoints are same but enclosing is open and enclosed closed', () => {
+      const a = MathInterval.interval(0, true, 100, true);
+      const b = MathInterval.interval(0, true, 100, false);
+      expect(a.encloses(b)).toBe(true);
+    });
+
+    it('should enclose if singleton', () => {
+      const a = MathInterval.interval(0, false, 100, true);
+      const b = MathInterval.interval(100, true, 100, true);
+      expect(a.encloses(b)).toBe(true);
+    });
+
+    it('should enclose if on the edge', () => {
+      const a = MathInterval.interval(0, false, 100, true);
+      const b = MathInterval.interval(50, true, 100, true);
+      expect(a.encloses(b)).toBe(true);
+    });
+
+    it('should not enclose if enclosing open and enclosed close', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(50, true, 100, true);
+      expect(a.encloses(b)).toBe(false);
+    });
+  });
+
+  describe('equals', () => {
+    it('should be equal closed', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(0, false, 100, false);
+      expect(a.equals(b)).toBe(true);
+    });
+
+    it('should be equal open closed', () => {
+      const a = MathInterval.interval(0, true, 100, false);
+      const b = MathInterval.interval(0, true, 100, false);
+      expect(a.equals(b)).toBe(true);
+    });
+
+    it('should not be equal if bounds are not same type', () => {
+      const a = MathInterval.interval(0, false, 100, false);
+      const b = MathInterval.interval(0, true, 100, false);
+      expect(a.equals(b)).toBe(false);
+    });
+
+    it('should not be equal if endpoints are not same', () => {
+      const a = MathInterval.interval(50, true, 100, true);
+      const b = MathInterval.interval(0, true, 100, true);
+      expect(a.equals(b)).toBe(false);
+    });
+  });
+
   describe('open', () => {
     const interval = MathInterval.open(0, 100);
 
