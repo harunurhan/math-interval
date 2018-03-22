@@ -122,10 +122,8 @@ export class MathInterval {
 
   public equals(other: MathInterval): boolean {
     // TODO: try to move some logic to Bound.equals
-    return this.lowerBound.closed === other.lowerBound.closed
-      && this.lowerBound.endpoint === other.lowerBound.endpoint
-      && this.upperBound.closed === other.upperBound.closed
-      && this.upperBound.endpoint === other.upperBound.endpoint;
+    return this.lowerBound.equals(other.lowerBound)
+      && this.upperBound.equals(other.upperBound);
   }
 
   public toString(): string {

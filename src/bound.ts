@@ -21,6 +21,11 @@ export abstract class Bound {
     this.endpoint = value;
   }
 
+  public equals(other: Bound): boolean {
+    return this.endpoint === other.endpoint
+      && this.closed === other.closed;
+  }
+
   public abstract test(n: number): boolean;
   public abstract get closed(): boolean;
 }
