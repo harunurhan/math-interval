@@ -89,7 +89,7 @@ describe('MathInterval', () => {
     });
   });
 
-  xdescribe('span', () => {
+  describe('span', () => {
     it('should return span for connected', () => {
       const a = MathInterval.interval(0, false, 100, false);
       const b = MathInterval.interval(50, false, 150, false);
@@ -118,7 +118,7 @@ describe('MathInterval', () => {
     });
   });
 
-  xdescribe('intersection', () => {
+  describe('intersection', () => {
     it('should return intersection for connected', () => {
       const a = MathInterval.interval(0, false, 100, true);
       const b = MathInterval.interval(50, false, 150, false);

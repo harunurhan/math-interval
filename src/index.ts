@@ -113,11 +113,19 @@ export class MathInterval {
   }
 
   public span(other: MathInterval): MathInterval {
-    return null;
+    const lowerBound = this.lowerBound.compareTo(other.lowerBound) > 0 ?
+      this.lowerBound : other.lowerBound;
+    const upperBound = this.upperBound.compareTo(other.upperBound) > 0 ?
+      this.upperBound : other.upperBound;
+    return new MathInterval(lowerBound, upperBound);
   }
 
   public intersection(connected: MathInterval): MathInterval {
-    return null;
+    const lowerBound = this.lowerBound.compareTo(connected.lowerBound) < 0 ?
+      this.lowerBound : connected.lowerBound;
+    const upperBound = this.upperBound.compareTo(connected.upperBound) < 0 ?
+      this.upperBound : connected.upperBound;
+    return new MathInterval(lowerBound, upperBound);
   }
 
   public equals(other: MathInterval): boolean {

@@ -28,9 +28,32 @@ export abstract class Bound {
 
   public abstract test(n: number): boolean;
   public abstract get closed(): boolean;
+  public abstract compareTo(other: Bound): number;
 }
 
-class LowerClosedBound extends Bound {
+abstract class LowerBound extends Bound {
+  public compareTo(other: LowerBound): number {
+    // TODO: throw if not isinsteaceof?
+    if (this.endpoint === other.endpoint) {
+      return this.closed ? 1 : -1;
+    } else {
+      return this.endpoint < other.endpoint ? 1 : -1;
+    }
+  }
+}
+
+abstract class UpperBound extends Bound {
+  public compareTo(other: UpperBound): number {
+    // TODO: throw if not isinsteaceof?
+    if (this.endpoint === other.endpoint) {
+      return this.closed ? 1 : -1;
+    } else {
+      return this.endpoint > other.endpoint ? 1 : -1;
+    }
+  }
+}
+
+class LowerClosedBound extends LowerBound {
   public test(n: number): boolean {
     return n >= this.endpoint;
   }
@@ -40,7 +63,7 @@ class LowerClosedBound extends Bound {
   }
 }
 
-class LowerOpenBound extends Bound {
+class LowerOpenBound extends LowerBound {
   public test(n: number): boolean {
     return n > this.endpoint;
   }
@@ -50,7 +73,7 @@ class LowerOpenBound extends Bound {
   }
 }
 
-class UpperClosedBound extends Bound {
+class UpperClosedBound extends UpperBound {
   public test(n: number): boolean {
     return n <= this.endpoint;
   }
@@ -60,7 +83,7 @@ class UpperClosedBound extends Bound {
   }
 }
 
-class UpperOpenBound extends Bound {
+class UpperOpenBound extends UpperBound {
   public test(n: number): boolean {
     return n < this.endpoint;
   }
