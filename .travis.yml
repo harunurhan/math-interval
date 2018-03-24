@@ -10,12 +10,28 @@ before_install:
 addons:
   chrome: stable
 before_deploy:
-- npm run build
+- yarn build
+- yarn docs
 deploy:
-  provider: npm
+- provider: npm
   email: harunurhan17@gmail.com
   skip_cleanup: true
   on:
     tags: true
     repo: harunurhan/math-interval
     branch: master
+  api_key:
+    secure: HnycvpwrDFOpQ1Qe0hiEGyfpXDrMAgMPjtg3vYBu5PeAZroRoknYPE2cmvJw0vcPqz4KAkIf0DxHcadqwoNCEryMySXGqqdXAQ76JTXrUtLDClJv7hKOw/LbE8Vr+rCfrpH27Z+SPIefthK4/zAejLRespCSe4pV0E4HyuZKEHjbCqKsE+upqVrvjBdRN0TnNWXrkS91Bx9miZSu6xdOMrdBJtqjYmM1DCpDIlQ0P7drgs9Y0w1Sm5Sj7/ixJquX1GbFA3nqP7hf2olCXoxsIEXvWJPgl9sg1Xxikc1Lg1RgyM4Kz98/YjtCNS5GDBaxrD4h2Z01Lq9V25OlZdqn0I8lhl2kD+Lyatz3NZlZap3smHZizXij1T20i3oDlvabnvXrgITS9ahHa0dTcOTl2NT8ThNmDOUYZjxUmBhJEprt7/Kgngpd9+XV0UlViCkTTETaxjdXgd25g3kMWHapnymO3aL9GWbDWphV4rQUidqh99E7eFRQrXn3mGuaMJHaCYf4erCUrvvQ7pjnH5Ya3v+SpZO/UADnOQqumW8/ptan1TuisEIT+VXGkhz0rCDs3QMImIhpkWs2f/3siLELD7j65iFg3fj6IUbzFFxH25pZUAg2GAi9/jrBhG7yrp6ThtuZahoB+pnko3WMPszoD1eiD9agY4iStfLlWDyJg9k=
+- provider: pages
+  local-dir: ./docs 
+  email: harunurhan17@gmail.com
+  name: harunurhan
+  github-token: $GITHUB_TOKEN
+  skip-cleanup: true
+  on:
+    tags: true
+    repo: harunurhan/math-interval
+    branch: master
+env:
+  matrix:
+    secure: 1ZRlqEpB8Jlhfj0ymT7Dfvxtwdn6OIxYQKyLzN69yKxqur/zbklfBVMz+KlhdNxIoVOshyXm4j3u66+hoKEKLlz7Do4BZ+2ZuNed/ppSAy7cXHvSaaji0G7/SN1V1zCpRBEqrihKr/Uan6km7b2MXWJ+ShkMvOYRdEWu5JI4TIJIjML3w2nujMmXOFuwd2SzgPnSa6c6ms3rTD/KVkPQNhWtbLRSVzKjcJq+JlaWCASQnsy/aWzz0QYS5n5oSRTkevxj+ExCTts5kli4JhrrIgSxvuU+n+iVhTMj66LopnybX8uEbRZeU8nzmr//aEGSXXhfuxk8HkkfK7lotnufT3oIngsoJzCqDK+1305bKrAHbzQkRG6kc+B9GXic53SodPdAn4Q0o65mF4JGREGd0nQrLFDLB023AyB/Zg/9R9tT1xe5c12RzbVd0DnYZeoWmoCVb8gIQ4Bq6ByQnI8UPBs4mp/E0u1cpQmS6mn2TtclNqSfh4SryTqgBR2Wk6YxT2dl4xGkZbPmblW7sFxQ8zxSdrwx0Hf1CJBJtORaWZUNNSJgtpqw/mO4tsMAaO/QqisKFgv2/IDTnn8vOnrwU1PuiQYi4ptIUs60g6uV12G9zqx+5s/yA9nY/K9E7G3bpouh0hUZ+CZBBTQ84s0rjK1wMif7RcgI2w/+j22QR5s=
