@@ -12,6 +12,7 @@ addons:
 before_deploy:
 - yarn build
 - yarn docs
+- touch ./docs/.nojekyll
 deploy:
 - provider: npm
   email: harunurhan17@gmail.com
