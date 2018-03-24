@@ -2,12 +2,14 @@
 
 ### Install
 
-`yarn add math-interval` or `npm install --save math-interval`
+`yarn add math-interval-2` or `npm install --save math-interval-2`
+
+Big thanks to @npm for finding `math-interval` to similar to an existing package.
 
 ### Usage
 
 ```typescript
-import { MathInterval } from 'math-interval'
+import { MathInterval } from 'math-interval-2'
 
 const interval = MathInterval.closedOpen(1, 5);
 interval.contains(1) // true
