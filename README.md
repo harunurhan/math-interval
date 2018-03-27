@@ -28,5 +28,5 @@ For more, please check [tests](./src/index.spec.ts) and [docs](https://harunurha
 
 #### Date support
 
-For now you have to convert it to number with `date.getTime()`, see [Date.prototype.getTime()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime), you can track the direct date support via #5.
+For now you have to convert it to number with `date.getTime()`, see [Date.prototype.getTime()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime), you can track the direct date support via [#5](https://github.com/harunurhan/math-interval/issues/5).
 
