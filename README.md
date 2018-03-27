@@ -1,5 +1,7 @@
 ## math-interval
 
+Please have look at [wikipedia](https://en.wikipedia.org/wiki/Interval_(mathematics)) if you don't know what it means.
+
 ### Install
 
 `yarn add math-interval-2` or `npm install --save math-interval-2`
