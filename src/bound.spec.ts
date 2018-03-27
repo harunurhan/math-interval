@@ -1,6 +1,97 @@
 import { Bound } from './bound';
 
 describe('Bound', () => {
+  describe('UpperBound', () => {
+    describe('compareTo', () => {
+      it('should return < 0 endpoint is smaller than other if bound type is same', () => {
+        const a = Bound.upperClosedBound(1);
+        const b = Bound.upperClosedBound(2);
+        expect(a.compareTo(b)).toBeLessThan(0);
+      });
+
+      it('should return < 0 endpoint is closed smaller than other open', () => {
+        const a = Bound.upperClosedBound(1);
+        const b = Bound.upperOpenBound(2);
+        expect(a.compareTo(b)).toBeLessThan(0);
+      });
+
+      it('should return < 0 endpoint is open smaller than other closed', () => {
+        const a = Bound.upperOpenBound(1);
+        const b = Bound.upperClosedBound(2);
+        expect(a.compareTo(b)).toBeLessThan(0);
+      });
+
+      it('should return > 0 endpoint is greater than other if bound type is same', () => {
+        const a = Bound.upperClosedBound(2);
+        const b = Bound.upperClosedBound(1);
+        expect(a.compareTo(b)).toBeGreaterThan(0);
+      });
+
+      it('should return > 0 endpoint is closed greater than other open', () => {
+        const a = Bound.upperClosedBound(2);
+        const b = Bound.upperOpenBound(1);
+        expect(a.compareTo(b)).toBeGreaterThan(0);
+      });
+
+      it('should return > 0 endpoint is open greater than other closed', () => {
+        const a = Bound.upperOpenBound(2);
+        const b = Bound.upperClosedBound(1);
+        expect(a.compareTo(b)).toBeGreaterThan(0);
+      });
+
+      it('should return > 0 if close and other open with equal endpoints', () => {
+        const a = Bound.upperClosedBound(1);
+        const b = Bound.upperOpenBound(1);
+        expect(a.compareTo(b)).toBeGreaterThan(0);
+      });
+    });
+  });
+
+  describe('LowerBound', () => {
+    describe('compareTo', () => {
+      it('should return > 0 endpoint is smaller than other if bound type is same', () => {
+        const a = Bound.lowerClosedBound(1);
+        const b = Bound.lowerClosedBound(2);
+        expect(a.compareTo(b)).toBeGreaterThan(0);
+      });
+
+      it('should return > 0 endpoint is closed smaller than other open', () => {
+        const a = Bound.lowerClosedBound(1);
+        const b = Bound.lowerOpenBound(2);
+        expect(a.compareTo(b)).toBeGreaterThan(0);
+      });
+
+      it('should return > 0 endpoint is open smaller than other closed', () => {
+        const a = Bound.lowerOpenBound(1);
+        const b = Bound.lowerClosedBound(2);
+        expect(a.compareTo(b)).toBeGreaterThan(0);
+      });
+
+      it('should return < 0 endpoint is greater than other if bound type is same', () => {
+        const a = Bound.lowerClosedBound(2);
+        const b = Bound.lowerClosedBound(1);
+        expect(a.compareTo(b)).toBeLessThan(0);
+      });
+
+      it('should return < 0 endpoint is closed greater than other open', () => {
+        const a = Bound.lowerClosedBound(2);
+        const b = Bound.lowerOpenBound(1);
+        expect(a.compareTo(b)).toBeLessThan(0);
+      });
+
+      it('should return < 0 endpoint is open greater than other closed', () => {
+        const a = Bound.lowerOpenBound(2);
+        const b = Bound.lowerClosedBound(1);
+        expect(a.compareTo(b)).toBeLessThan(0);
+      });
+
+      it('should return > 0 if close and other open with equal endpoints', () => {
+        const a = Bound.lowerClosedBound(1);
+        const b = Bound.lowerOpenBound(1);
+        expect(a.compareTo(b)).toBeGreaterThan(0);
+      });
+    });
+  });
 
   describe('equals', () => {
     it('should be equal if bound typess and endpoints are same', () => {
