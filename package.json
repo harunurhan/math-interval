@@ -1,6 +1,6 @@
 {
   "name": "math-interval-2",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Create math intervals like '(-∞, 100]' and test values",
   "main": "dist/index.js",
   "scripts": {
